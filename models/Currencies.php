@@ -51,15 +51,15 @@ class Currencies extends \yii\db\ActiveRecord
     public static function getPayments($id)
     {
         if (count($id) > 1) {
-            $array = implode(',',$id);
+            $array = implode(',', $id);
         } else {
-            $array = $id[0];
+            $array = $id;
         }
 
        $sql = "SELECT c.id, c.name AS currenciesName, c.img, p.name, p.img FROM currencies AS c
                   JOIN payments AS p
                   ON c.payments_id = p.id
-                  WHERE c.id IN (" . $array . ")";
+                  WHERE c.id IN ($array)";
 
        return Yii::$app->db->createCommand($sql)->queryAll();
     }

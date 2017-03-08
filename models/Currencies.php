@@ -53,7 +53,7 @@ class Currencies extends \yii\db\ActiveRecord
         if (count($id) > 1) {
             $array = implode(',',$id);
         } else {
-            $array = $id;
+            $array = $id[0];
         }
 
        $sql = "SELECT c.id, c.name AS currenciesName, c.img, p.name, p.img FROM currencies AS c

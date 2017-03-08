@@ -32,27 +32,28 @@
                             <h3 class="panel-title">Выберите платежную систему</h3>
                         </div>
                         <ul class="list-group">
-                            <?php foreach (Payments::find()->all() as $key => $val): ?>
+                            <?php $pay = Payments::find()->all() ?>
+                            <?php for($i = 0; $i < count($pay); $i++ ): ?>
                             <li class="list-group-item">
-                                <div class="row toggle" id="dropdown-detail-<?= $key ?>" data-toggle="detail-<?= $key ?>">
+                                <div class="row toggle" id="dropdown-detail-<?= $pay[$i]['id'] ?>" data-toggle="detail-<?= $pay[$i]['id'] ?>">
                                     <div class="col-xs-10">
-                                        <?= Html::img('@web/uploads/' . $val['img'], ['style' => 'width: 30px']) ?>
-                                        <?= $val['name']?>
+                                        <?= Html::img('@web/uploads/' . $pay[$i]['img'], ['style' => 'width: 30px']) ?>
+                                        <?= $pay[$i]['name']?>
                                     </div>
                                     <div class="col-xs-2"><i class="fa fa-chevron-down pull-right"></i></div>
                                 </div>
-                                <div id="detail-<?= $key ?>">
+                                <div id="detail-<?= $pay[$i]['id'] ?>">
                                     <hr>
                                     <div class="container">
                                         <div class="fluid-row">
-                                            <?php foreach (Currencies::find()->where(['payments_id' => $key])->all() as $key2 => $val2): ?>
+                                            <?php foreach (Currencies::find()->where(['payments_id' => $pay[$i]['id']])->all() as $key2 => $val2): ?>
                                             <a href="" class="currency" data-id="<?= $val2['id']?>"><span class="label label-success"><?= $val2['name']?></span></a>
                                             <?php endforeach;?>
                                         </div>
                                     </div>
                                 </div>
                             </li>
-                            <?php endforeach; ?>
+                            <?php endfor; ?>
                         </ul>
                     </div>
                 </div>
